@@ -29,3 +29,20 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+
+/* prevent public users to access your php files through url */
+// if ( ! defined('ABSPATH') ) {
+//     die;
+// };
+
+//or
+
+defined( 'ABSPATH' ) or die('Hey, you can\'t access this file, you silly human!');
+
+//or
+
+// if ( ! function_exists( 'add_action')) {
+//     echo 'Hey, you can\'t access this file, you silly human!';
+//     exit;
+// };
+
