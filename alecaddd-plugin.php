@@ -56,6 +56,12 @@ class AlecadddPlugin
         add_action( 'init', array($this, 'custom_post_type'));
     }
 
+    function register() {
+        add_action( 'admin_enqueue_scripts', array($this, 'enqueue'));
+        //if ywe want to enqueue it in the frontend, use this:
+        //add_action( 'wp_enqueue_scripts', array($this, 'enqueue'));
+    }
+
     function activate() {
         //echo 'The plugin was activated';
 
@@ -76,11 +82,17 @@ class AlecadddPlugin
         register_post_type( 'book', ['public' => true, 'label'=> 'Books' ]);
     }
 
+    function enqueue() {
+        wp_enqueue_style( 'mypluginstyle', plugins_url( '/assets/mystyle.css', __FILE__ ));
+        wp_enqueue_script( 'mypluginscript', plugins_url( '/assets/myscript.js', __FILE__ ));
+    }
+
 
 }
 
 if ( class_exists( 'AlecadddPlugin')) {
-    $alecadddPlugin = new AlecadddPlugin('Just checking if it goes through Just checking if it goes through ');
+    $alecadddPlugin = new AlecadddPlugin('Just checking if it goes through Just checking if it goes through');
+    $alecadddPlugin->register();
 }
 
 //activation                 ↓ is alecaddd-plugin.php         ( ↓ instantiated obj, ↓ method )
