@@ -46,65 +46,61 @@ defined( 'ABSPATH' ) or die('Hey, you can\'t access this file, you silly human!'
 //     exit;
 // };
 
+if ( !class_exists( 'AlecadddPlugin')) {
 
-class AlecadddPlugin
-{
-    //public-can be access everywhere
-    //protected-can be access within a class and extended class
-    //private-can be access only within a class
-    //static-can be access without instantiating the class
-    //methods
-    function __construct()
+    class AlecadddPlugin
     {
-                                 // ↓ is the class itself then calling the method
-        add_action( 'init', array($this, 'custom_post_type'));
+        //public-can be access everywhere
+        //protected-can be access within a class and extended class
+        //private-can be access only within a class
+        //static-can be access without instantiating the class
+        //methods
+        // function __construct()
+        // {
+        //                              // ↓ is the class itself then calling the method
+        //     add_action( 'init', array($this, 'custom_post_type'));
+        // }
+        protected function create_post_type() {
+            add_action( 'init', array( $this, 'custom_post_type' ) );
+        }
+
+        function register() {
+            add_action( 'admin_enqueue_scripts', array($this, 'enqueue'));
+            //if ywe want to enqueue it in the frontend, use this:
+            //add_action( 'wp_enqueue_scripts', array($this, 'enqueue'));
+        }
+
+        function custom_post_type() {
+            register_post_type( 'book', ['public' => true, 'label'=> 'Books' ]);
+        }
+
+        function enqueue() {
+            wp_enqueue_style( 'mypluginstyle', plugins_url( '/assets/mystyle.css', __FILE__ ));
+            wp_enqueue_script( 'mypluginscript', plugins_url( '/assets/myscript.js', __FILE__ ));
+        }
+
+        function activate() {
+            require_once plugin_dir_path( __FILE__ ) . 'inc/alecaddd-plugin-activate.php';
+            AlecadddPluginActivate::activate();
+        }
+
     }
 
-    function register() {
-        add_action( 'admin_enqueue_scripts', array($this, 'enqueue'));
-        //if ywe want to enqueue it in the frontend, use this:
-        //add_action( 'wp_enqueue_scripts', array($this, 'enqueue'));
-    }
 
-    function activate() {
-        //echo 'The plugin was activated';
+        $alecadddPlugin = new AlecadddPlugin('Just checking if it goes through Just checking if it goes through');
+        $alecadddPlugin->register();
 
-        //generate a CPT
-        $this->custom_post_type();
+    //activation  
 
-        //flush the rewrite rules
-        flush_rewrite_rules();
-    }
+    // require_once plugin_dir_path( __FILE__) . 'inc/alecaddd-plugin-activate.php';
+    register_activation_hook( __FILE__,                      array( $alecadddPlugin, 'activate') );
 
-    function deactivate() {
-        //echo 'The plugin was deactivated';
-        // flush the rewrite rules
-        flush_rewrite_rules();
-    }
-
-    function custom_post_type() {
-        register_post_type( 'book', ['public' => true, 'label'=> 'Books' ]);
-    }
-
-    function enqueue() {
-        wp_enqueue_style( 'mypluginstyle', plugins_url( '/assets/mystyle.css', __FILE__ ));
-        wp_enqueue_script( 'mypluginscript', plugins_url( '/assets/myscript.js', __FILE__ ));
-    }
-
+    //deactivation
+    require_once plugin_dir_path( __FILE__) . 'inc/alecaddd-plugin-deactivate.php';
+    //                          ↓ is alecaddd-plugin.php    ( ↓ class on another php file, ↓ method )
+    register_deactivation_hook( __FILE__, array( 'AlecadddPluginDeactivate', 'deactivate') );
 
 }
-
-if ( class_exists( 'AlecadddPlugin')) {
-    $alecadddPlugin = new AlecadddPlugin('Just checking if it goes through Just checking if it goes through');
-    $alecadddPlugin->register();
-}
-
-//activation                 ↓ is alecaddd-plugin.php         ( ↓ instantiated obj, ↓ method )
-register_activation_hook( __FILE__,                      array( $alecadddPlugin, 'activate') );
-
-//deactivation
-register_deactivation_hook( __FILE__, array( $alecadddPlugin, 'deactivate') );
-
 
 
 
