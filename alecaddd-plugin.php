@@ -49,6 +49,10 @@ defined( 'ABSPATH' ) or die('Hey, you can\'t access this file, you silly human!'
 
 class AlecadddPlugin
 {
+    //public-can be access everywhere
+    //protected-can be access within a class and extended class
+    //private-can be access only within a class
+    //static-can be access without instantiating the class
     //methods
     function __construct()
     {
