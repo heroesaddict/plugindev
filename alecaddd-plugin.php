@@ -58,7 +58,7 @@ class AlecadddPlugin
 
     function activate() {
         //echo 'The plugin was activated';
-        
+
         //generate a CPT
         $this->custom_post_type();
 
@@ -70,11 +70,6 @@ class AlecadddPlugin
         //echo 'The plugin was deactivated';
         // flush the rewrite rules
         flush_rewrite_rules();
-    }
-
-    function uninstall() {
-        //delete CPT
-        //delete all the plugin data from the DB
     }
 
     function custom_post_type() {
@@ -93,9 +88,6 @@ register_activation_hook( __FILE__,                      array( $alecadddPlugin,
 
 //deactivation
 register_deactivation_hook( __FILE__, array( $alecadddPlugin, 'deactivate') );
-
-
-//uninstall
 
 
 
