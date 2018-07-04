@@ -60,14 +60,39 @@ if ( !class_exists( 'AlecadddPlugin')) {
         //                              // ↓ is the class itself then calling the method
         //     add_action( 'init', array($this, 'custom_post_type'));
         // }
-        protected function create_post_type() {
-            add_action( 'init', array( $this, 'custom_post_type' ) );
-        }
+        public $plugin;
+
+		function __construct() {
+            $this->plugin = plugin_basename( __FILE__ );
+		}
 
         function register() {
             add_action( 'admin_enqueue_scripts', array($this, 'enqueue'));
             //if ywe want to enqueue it in the frontend, use this:
             //add_action( 'wp_enqueue_scripts', array($this, 'enqueue'));
+
+            add_action( 'admin_menu', array($this, 'add_admin_pages' ));
+            add_filter( "plugin_action_links_$this->plugin", array( $this, 'settings_link' ) );
+            //                            ↑↑↑ uses double quote to concatenate autmomatically the variable 
+            //double quotes escape variables in php  
+        }
+        public function settings_link( $links ) {
+			$settings_link = '<a href="admin.php?page=alecaddd_plugin">Settings</a>';
+			array_push( $links, $settings_link );
+			return $links;
+		}
+
+        public function add_admin_pages() {
+            add_menu_page( 'AlecadddPlugin', 'Alecaddd', 'manage_options', 'alecaddd_plugin', array($this, 'admin_index'), 'dashicons-store', 110 );
+        }
+        public function admin_index(){
+            //require a template
+            require_once plugin_dir_path( __FILE__ ) . 'templates/admin.php';
+       
+        }
+
+        protected function create_post_type() {
+            add_action( 'init', array( $this, 'custom_post_type' ) );
         }
 
         function custom_post_type() {
