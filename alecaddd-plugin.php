@@ -46,3 +46,50 @@ defined( 'ABSPATH' ) or die('Hey, you can\'t access this file, you silly human!'
 //     exit;
 // };
 
+
+class AlecadddPlugin
+{
+    // //methods
+    // function __construct($string)
+    // {
+    //     //this will show in the plugin admin page
+    //     //http://localhost/plugindev/wp-admin/plugins.php
+    //     echo '<h1 >'.$string.'</h1>';
+    // }
+
+    function activate() {
+        //echo 'The plugin was activated';
+        //generate a CPT
+        //flush the rewrite rules
+    }
+
+    function deactivate() {
+        //echo 'The plugin was deactivated';
+        // flush the rewrite rules
+    }
+
+    function uninstall() {
+        //delete CPT
+        //delete all the plugin data from the DB
+    }
+
+
+}
+
+if ( class_exists( 'AlecadddPlugin')) {
+    $alecadddPlugin = new AlecadddPlugin('Just checking if it goes through Just checking if it goes through ');
+}
+
+//activation                 ↓ is alecaddd-plugin.php         ( ↓ instantiated obj, ↓ method )
+register_activation_hook( __FILE__,                      array( $alecadddPlugin, 'activate') );
+
+//deactivation
+register_deactivation_hook( __FILE__, array( $alecadddPlugin, 'deactivate') );
+
+
+//uninstall
+
+
+
+
+
