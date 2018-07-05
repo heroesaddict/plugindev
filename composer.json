@@ -1,0 +1,17 @@
+{
+    "name": "kimoliverchatto/alecaddd-plugin",
+    "description": "starter plugin",
+    "type": "project",
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "heroesaddict",
+            "email": "chattokim@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4" : {"Inc\\": "./inc"}
+    }
+}

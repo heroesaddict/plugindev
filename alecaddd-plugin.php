@@ -36,15 +36,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 // };
 
 //or
-
-defined( 'ABSPATH' ) or die('Hey, you can\'t access this file, you silly human!');
-
 //or
 
 // if ( ! function_exists( 'add_action')) {
 //     echo 'Hey, you can\'t access this file, you silly human!';
 //     exit;
 // };
+
+
+defined( 'ABSPATH' ) or die('Hey, you can\'t access this file, you silly human!');
+if (file_exists(dirname(__FILE__)) . '/vendor/autoload.php'); {
+    require_once(dirname(__FILE__)) . '/vendor/autoload.php';
+    //echo dirname(__FILE__) . '/vendor/autoload.php';
+}
+
+//requiring once the Activate file/class
+use Inc\Activate;
+use Inc\Deactivate;
+use Inc\Admin\AdminPages;
 
 if ( !class_exists( 'AlecadddPlugin')) {
 
@@ -105,8 +114,8 @@ if ( !class_exists( 'AlecadddPlugin')) {
         }
 
         function activate() {
-            require_once plugin_dir_path( __FILE__ ) . 'inc/alecaddd-plugin-activate.php';
-            AlecadddPluginActivate::activate();
+            // require_once plugin_dir_path( __FILE__ ) . 'inc/alecaddd-plugin-activate.php';
+            Activate::activate();
         }
 
     }
@@ -114,6 +123,7 @@ if ( !class_exists( 'AlecadddPlugin')) {
 
         $alecadddPlugin = new AlecadddPlugin('Just checking if it goes through Just checking if it goes through');
         $alecadddPlugin->register();
+        Adminpages::activate();
 
     //activation  
 
@@ -121,9 +131,9 @@ if ( !class_exists( 'AlecadddPlugin')) {
     register_activation_hook( __FILE__,                      array( $alecadddPlugin, 'activate') );
 
     //deactivation
-    require_once plugin_dir_path( __FILE__) . 'inc/alecaddd-plugin-deactivate.php';
+    // require_once plugin_dir_path( __FILE__) . 'inc/alecaddd-plugin-deactivate.php';
     //                          ↓ is alecaddd-plugin.php    ( ↓ class on another php file, ↓ method )
-    register_deactivation_hook( __FILE__, array( 'AlecadddPluginDeactivate', 'deactivate') );
+    register_deactivation_hook( __FILE__, array( 'Deactivate', 'deactivate') );
 
 }
 
