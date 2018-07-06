@@ -2,12 +2,12 @@
 /*************
 *@package AlecaddddPlugin
 */
-namespace Inc;
+namespace Inc\Base;
 
 //name of class and file should match for psr-4 autoload to work
-class Activate
+class Deactivate
 {
-    public static function activate() {
+    public static function deactivate() {
         flush_rewrite_rules();
     }
 }
