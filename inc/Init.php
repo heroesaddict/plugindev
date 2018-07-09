@@ -15,7 +15,8 @@ final class Init
     public static function get_services() {
         return [
             Pages\Admin::class, //sidenote: if Pages\Admin--> return only the file just like using 'use'
-            Base\Enqueue::class
+            Base\Enqueue::class,
+            Base\SettingsLinks::class
         ];
     }
 
