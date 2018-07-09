@@ -3,30 +3,42 @@
  * @package  AlecadddPlugin
  */
 namespace Inc\Pages;
-use \Inc\Base\BaseController;
-use \Inc\Api\SettingsApi;
+use Inc\Api\SettingsApi;
+use Inc\Base\BaseController;
+use Inc\Api\Callbacks\AdminCallbacks;
 /**
 * 
 */
 class Admin extends BaseController
 {
 	public $settings;
+	public $callbacks;
 	public $pages = array();
 	public $subpages = array();
-	public function __construct()
+	public function register() 
 	{
 		$this->settings = new SettingsApi();
+		$this->callbacks = new AdminCallbacks();
+		$this->setPages();
+		$this->setSubpages();
+		$this->settings->addPages( $this->pages )->withSubPage( 'Dashboard' )->addSubPages( $this->subpages )->register();
+	}
+	public function setPages() 
+	{
 		$this->pages = array(
 			array(
 				'page_title' => 'Alecaddd Plugin', 
 				'menu_title' => 'Alecaddd', 
 				'capability' => 'manage_options', 
 				'menu_slug' => 'alecaddd_plugin', 
-				'callback' => function() { echo '<h1>Alecaddd Plugin</h1>'; }, 
+				'callback' => array( $this->callbacks, 'adminDashboard' ), 
 				'icon_url' => 'dashicons-store', 
 				'position' => 110
 			)
 		);
+	}
+	public function setSubpages()
+	{
 		$this->subpages = array(
 			array(
 				'parent_slug' => 'alecaddd_plugin', 
@@ -34,7 +46,7 @@ class Admin extends BaseController
 				'menu_title' => 'CPT', 
 				'capability' => 'manage_options', 
 				'menu_slug' => 'alecaddd_cpt', 
-				'callback' => function() { echo '<h1>CPT Manager</h1>'; }
+				'callback' => array( $this->callbacks, 'adminCpt' )
 			),
 			array(
 				'parent_slug' => 'alecaddd_plugin', 
@@ -42,7 +54,7 @@ class Admin extends BaseController
 				'menu_title' => 'Taxonomies', 
 				'capability' => 'manage_options', 
 				'menu_slug' => 'alecaddd_taxonomies', 
-				'callback' => function() { echo '<h1>Taxonomies Manager</h1>'; }
+				'callback' => array( $this->callbacks, 'adminTaxonomy' )
 			),
 			array(
 				'parent_slug' => 'alecaddd_plugin', 
@@ -50,12 +62,8 @@ class Admin extends BaseController
 				'menu_title' => 'Widgets', 
 				'capability' => 'manage_options', 
 				'menu_slug' => 'alecaddd_widgets', 
-				'callback' => function() { echo '<h1>Widgets Manager</h1>'; }
+				'callback' => array( $this->callbacks, 'adminWidget' )
 			)
 		);
-	}
-	public function register() 
-	{
-		$this->settings->addPages( $this->pages )->withSubPage( 'Dashboard' )->addSubPages( $this->subpages )->register();
 	}
 }
