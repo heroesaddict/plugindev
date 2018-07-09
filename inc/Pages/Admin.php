@@ -1,24 +1,34 @@
 <?php 
-/*************
-*@package AlecaddddPlugin
-*/
+/**
+ * @package  AlecadddPlugin
+ */
 namespace Inc\Pages;
 use \Inc\Base\BaseController;
-
-//everytime a class is use to extend another class, it gets initialize
+use \Inc\Api\SettingsApi;
+/**
+* 
+*/
 class Admin extends BaseController
 {
-    
-    public function register() {
-        add_action( 'admin_menu', array($this, 'add_admin_pages' ));
-    }
-
-    public function add_admin_pages() {
-        add_menu_page( 'AlecadddPlugin', 'Alecaddd', 'manage_options', 'alecaddd_plugin', array($this, 'admin_index'), 'dashicons-store', 110 );
-    }
-    public function admin_index(){
-        //require a template
-        require_once $this->plugin_path . 'templates/admin.php';
-    
-    }
+	public $settings;
+	public $pages = array();
+	public function __construct()
+	{
+		$this->settings = new SettingsApi();
+		$this->pages = array(
+			array(
+				'page_title' => 'Alecaddd Plugin', 
+				'menu_title' => 'Alecaddd', 
+				'capability' => 'manage_options', 
+				'menu_slug' => 'alecaddd_plugin', 
+				'callback' => function() { echo '<h1>Alecaddd Plugin</h1>'; }, 
+				'icon_url' => 'dashicons-store', 
+				'position' => 110
+			)
+		);
+	}
+	public function register() 
+	{
+		$this->settings->addPages( $this->pages )->register(); //method chaining
+	}
 }
