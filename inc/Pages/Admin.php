@@ -15,6 +15,7 @@ class Admin extends BaseController
 	public $callbacks;
 	public $pages = array();
 	public $subpages = array();
+	
 	public function register() 
 	{
 		$this->settings = new SettingsApi();
