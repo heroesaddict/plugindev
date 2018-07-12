@@ -15,7 +15,7 @@ class Admin extends BaseController
 	public $callbacks;
 	public $pages = array();
 	public $subpages = array();
-	
+
 	public function register() 
 	{
 		$this->settings = new SettingsApi();
@@ -81,6 +81,10 @@ class Admin extends BaseController
 			array(
 				'option_group' => 'alecaddd_options_group',
 				'option_name' => 'first_name'
+			),
+			array(
+				'option_group' => 'alecaddd_options_group',
+				'option_name' => 'last_name'
 			)
 		);
 		$this->settings->setSettings( $args );
@@ -119,6 +123,17 @@ class Admin extends BaseController
 				'section' => 'alecaddd_admin_index',
 				'args' => array(
 					'label_for' => 'first_name',
+					'class' => 'example-class'
+				)
+			),
+			array(
+				'id' => 'last_name',
+				'title' => 'Last Name',
+				'callback' => array( $this->callbacks, 'alecadddLastName' ),
+				'page' => 'alecaddd_plugin',
+				'section' => 'alecaddd_admin_index',
+				'args' => array(
+					'label_for' => 'last_name',
 					'class' => 'example-class'
 				)
 			)
