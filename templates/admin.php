@@ -13,7 +13,7 @@
 
 			<form method="post" action="options.php">
 				<?php 
-					settings_fields( 'alecaddd_options_group' );
+					settings_fields( 'alecaddd_plugin_settings' );
 					do_settings_sections( 'alecaddd_plugin' );
 					submit_button();
 				?>

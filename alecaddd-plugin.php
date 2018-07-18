@@ -1,17 +1,16 @@
-<?php 
-/*************
-*@package AlecaddddPlugin
-*/
-
+<?php
+/**
+ * @package  AlecadddPlugin
+ */
 /*
 Plugin Name: Alecaddd Plugin
-Plugin URI: https://alecaddd.com
-Description: This is my first attempt at writing a custom plugin base from alessandro castellani's youtube tutorial.
-Version: 0.1.0
-Author: Alessandro Castellani
+Plugin URI: http://alecaddd.com/plugin
+Description: This is my first attempt on writing a custom Plugin for this amazing tutorial series.
+Version: 1.0.0
+Author: Alessandro "Alecaddd" Castellani
 Author URI: http://alecaddd.com
 License: GPLv2 or later
-Text Domain: alecaddd plugin
+Text Domain: alecaddd-plugin
 */
 
 /*
@@ -28,13 +27,16 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+Copyright 2005-2015 Automattic, Inc.
 */
 
-//           ↓ is define in wp_load.php in a wordpress installation
-defined( 'ABSPATH' ) or die('Hey, you can\'t access this file, you silly human!');
-if (file_exists(dirname(__FILE__)) . '/vendor/autoload.php'); {
-    require_once(dirname(__FILE__)) . '/vendor/autoload.php';
-    //echo dirname(__FILE__) . '/vendor/autoload.php';
+// If this file is called firectly, abort!!!
+defined( 'ABSPATH' ) or die( 'Hey, what are you doing here? You silly human!' );
+
+// Require once the Composer Autoload
+if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ) {
+	require_once dirname( __FILE__ ) . '/vendor/autoload.php';
 }
 
 /**
@@ -56,11 +58,6 @@ register_deactivation_hook( __FILE__, 'deactivate_alecaddd_plugin' );
 /**
  * Initialize all the core classes of the plugin
  */
-if ( class_exists( 'Inc\\Init')) {
-    Inc\Init::register_services();
+if ( class_exists( 'Inc\\Init' ) ) {
+	Inc\Init::register_services();
 }
-
-
-
-
-

@@ -1,17 +1,17 @@
 {
-    "name": "kimoliverchatto/alecaddd-plugin",
-    "description": "starter plugin",
+    "name": "alecaddd/alecaddd-plugin",
+    "description": "Awesome starter plugin example",
     "type": "project",
-    "license": "GPL",
+    "license": "GPL-3.0",
     "authors": [
         {
-            "name": "heroesaddict",
-            "email": "chattokim@gmail.com"
+            "name": "Alecaddd",
+            "email": "castellani.ale@gmail.com"
         }
     ],
     "minimum-stability": "dev",
     "require": {},
     "autoload": {
-        "psr-4" : {"Inc\\": "./inc"}
+        "psr-4": {"Inc\\": "./inc"}
     }
 }
