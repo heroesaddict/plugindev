@@ -12,13 +12,23 @@ final class Init
 	 * Store all the classes inside an array
 	 * @return array Full list of classes
 	 */
-    public static function get_services() {
-        return [
-            Pages\Admin::class, //sidenote: if Pages\Admin--> return only the file just like using 'use'
-            Base\Enqueue::class,
-            Base\SettingsLinks::class
-        ];
-    }
+    public static function get_services() 
+	{
+		return [
+			Pages\Dashboard::class,
+			Base\Enqueue::class,
+			Base\SettingsLinks::class,
+			Base\CustomPostTypeController::class,
+			Base\CustomTaxonomyController::class,
+			Base\WidgetController::class,
+			Base\GalleryController::class,
+			Base\TestimonialController::class,
+			Base\TemplateController::class,
+			Base\AuthController::class,
+			Base\MembershipController::class,
+			Base\ChatController::class,
+		];
+	}
 
     /**
 	 * Loop through the classes, initialize them, 
